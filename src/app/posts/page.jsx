@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const PostsPage = async () => {
   const res = await fetch('https://jsonplaceholder.typicode.com/posts');
   const posts = await res.json();
@@ -8,22 +10,22 @@ const PostsPage = async () => {
         Here are all the posts available.
       </p>
 
-      <div className="space-y-4">
+      <div className="grid gap-5">
         {posts.slice(0, 10).map(post => (
-          <div
-            key={post.id}
-            className="bg-white rounded-xl border border-gray-200 p-5"
-          >
-            <span className="text-xs font-semibold text-purple-500 uppercase tracking-wide">
-              Post #{post.id}
-            </span>
-            <h2 className="font-semibold text-gray-800 mt-1 capitalize">
-              {post.title}
-            </h2>
-            <p className="text-sm text-gray-500 mt-2 line-clamp-2">
-              {post.body}
-            </p>
-          </div>
+          
+          <Link key={post.id} href={`/posts/${post.id}`}>
+            <div className="bg-white rounded-xl border border-gray-200 p-5 grid ">
+              <span className="text-xs font-semibold text-purple-500 uppercase tracking-wide">
+                Post #{post.id}
+              </span>
+              <h2 className="font-semibold text-gray-800 mt-1 capitalize">
+                {post.title}
+              </h2>
+              <p className="text-sm text-gray-500 mt-2 line-clamp-2">
+                {post.body}
+              </p>
+            </div>
+          </Link>
         ))}
       </div>
     </div>
